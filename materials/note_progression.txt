@@ -1,0 +1,28 @@
+// part 1: listening to music, and chilling 
+
+let progression1 = "<G2:major A2:major F#2:minor B2:minor>"
+let progression2 = "<G2:major F#2:minor B2:minor A2:major>"
+let progression3 = "<C G Am F>"
+
+let noteProg1 = `<[0@2 0 4 0 [7]*2] [0 0@2 5 0 [8 9]] [0@2 4 5 0 7] [0 4 5 0 [5 4]]>`
+let noteProg2 = `<[0 -1 0 2 4 5 5 4]>`
+let noteProg3 = "<[0@2 5 4 2] [0@2 4 2 -1] [0@2 2 0 -1] [0@2 4 2 0]>"
+
+_$: n(noteProg2)
+  // .scale(progression1)
+  .sound("gm_bassoon")
+  .adsr("0.05:0.05:1:0.5").lpf("500")
+
+// part 1.5 1min
+
+_$: n(chooseCycles(noteProg1, noteProg2, noteProg3))
+  .scale(progression2)
+  .sound("gm_bassoon")
+  .adsr("0.05:0.05:1:0.5").lpf("800")
+
+
+
+
+
+
+

@@ -1,0 +1,44 @@
+// drum / weird sounds
+let drums1 = "[bd ~ bd ~], [~ hh hh ~ ~ ~ ~ hh hh ~ hh oh], [~ sd ~ sd]"
+// part 1: listening to music, and chilling 
+
+let drums2 = "[bd mt sd], [~ hh ~ hh ~ hh oh hh ~ ht hh ~ ht hh hh]"
+let drums3 = "[bd mt sd ~ lt], [~ hh rim hh ~ hh oh hh ~ ht rim rim ~ hh hh]"
+
+let lpf_drums = "700"
+let hpf_drums = "2000"
+
+// part 1
+_$: sound(drums1).bank("RolandTR909")
+  .lpf(lpf_drums)
+
+// part 1.5
+_$: sound(chooseCycles(drums1, drums2, drums3)).bank("RolandTR909")
+  .lpf(lpf_drums).hpf(hpf_drums)
+
+// part 2
+// let's randomise some chaos (i promise it won't be too much, my sanity is still here)
+// roll a die on stage to change the beat number (i'll provide the die)
+// (board game! )
+// when chords have been playing for 10 seconds, start rolling dice! 
+const dbank = "RolandTR909"
+
+let beatNo = 3
+
+let snare = beatNo / 2
+let bass = beatNo 
+let hihat = beatNo * 3
+let clap = hihat * 3
+
+// uncomment vib in chaotic session  (LAST MINUTE) (DICE FOR TWO OF THEM)
+let vibDice = 7
+
+
+$: stack(
+  s("sd").bank(dbank).beat(irand(snare), snare).decay(0.5),
+  s("bd").bank(dbank).beat(irand(bass), bass),
+  s("hh").bank(dbank).beat(irand(hihat), bass), 
+  s("cp").bank(dbank).beat(irand(clap), clap).lpf(1000),
+).cpm(120).vib(vibDice) 
+
+

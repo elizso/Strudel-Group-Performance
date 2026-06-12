@@ -1,0 +1,22 @@
+enableMotion()
+// melody with gamepad
+const gp = gamepad(0)
+$: stack(
+  n(1).struct("x*3 x x*4 x*2").mask(gp.a).sound("space").color("red"), 
+  n(2).struct("x*3 x x*4 x*2").mask(gp.b).sound("space").color("blue"), 
+  n(3).struct("x*3 x x*4 x*2").mask(gp.x).sound("space").color("yellow"), 
+  n(4).struct("x*3 x x*4 x*2").mask(gp.y).sound("space").color("green"),
+  s("sd*4").mask(gp.LT).bank("RolandTR909")
+  .lpf(gp.x2.range(500, 2000))
+  .decay(gp.y2.range(0.1, 2)).color("pink"),
+  n(accelerationX.segment(4)).scale("C:major").octave(2).sound("sine")      
+  .fm(5.5).fmdecay(0.4).fmsustain(0.8).fmenv("exp") 
+  .lpf(gravityY.range(200,2000)).lpq(4)             
+  .amp(0.8).room(0.5).echo(3, 1/20, 0.4).mask(gp.tglLB).color("orange")
+  .decay(gp.x1.range(0.1, 2)),
+  n(accelerationX.segment(8)).scale("C:pentatonic").octave(gravityX.range(1,4))
+  .sound("sine").fm(5.5).fmdecay(0.4).fmsustain(0.8).fmenv("exp") 
+  .lpf(gravityY.range(200,2000)).lpq(4)             
+  .amp(0.8).room(0.5).echo(3, 1/20, 0.4).mask(gp.tglRB).color("purple")
+  .decay(gp.x1.range(0.1, 2)).vib(gp.y1.range(0, 4))
+).cpm(120).spiral()

@@ -1,0 +1,28 @@
+// part 1: listening to music, and chilling 
+        //[slowly build up to minute, start first, then drums, then prog]
+// part 1.5: change to chord2, and set lpf to 600 [30 seconds]
+
+let chord1 = "<G A F#m Bm>"
+let chord2 = "<G F#m Bm A>"
+let lpf = "600"
+
+_$: chord(chord2).voicing().room(.2).sound("gm_electric_guitar_clean")
+  .delay("0.2").delayfeedback("0.25").lpf(lpf)
+
+// "trombone" solo for 20 seconds
+// gamepad gets it's own sounds for another 20 seconds
+// "trombone" and gamepad argue for 30 seconds
+// start playing chords from a very low lpf,
+// and increase 100 every 2 seconds until it reaches 2000 (20 seconds)
+
+// part 2 chords
+let chord3 = "<C G Am F>"
+_$: chord(chord3).voicing().room(.6).sound("gm_electric_guitar_clean")
+  .delay("0.2").delayfeedback("0.25").lpf(2000)
+
+// LAST MINUTE
+
+// now time to go crazier 
+// add some modulation (you are allowed to change any value here) 
+$: chord(chord3).voicing().room(.6).sound("gm_electric_guitar_clean").delay("0.2")
+  .delayfeedback("0.25").hpf(2000).vib("<.5 1>")
